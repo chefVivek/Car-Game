@@ -1,7 +1,21 @@
 import random
-import pygame
+import pygame, sys
 from pygame.locals import *
 import tkinter as tk
+from pygame import mixer
+
+#Instantiate mixer for music
+mixer.init()
+#Load audio file
+mixer.music.load('E:\Mero-Balma-Thanedar_320(PaglaSongs).mp3')
+#Set preferred volume
+mixer.music.set_volume(0.2)
+#Play the music
+mixer.music.play()
+
+
+
+
 
 size = width ,height = (250,600)#creating a size variable to use it for relative coordinates
 road_w = int(width/1.2)
@@ -21,18 +35,19 @@ pygame.display.update()
 
 ##LOAD IMAGES
 #player vehicle
-car = pygame.image.load(r"C:\Users\Vivek\Desktop\car game\car3.png")
+car = pygame.image.load(r"C:\Users\Vivek\Desktop\car game\Car-Game\car3.png")
 car = pygame.transform.scale(car, (110, 110))
 car_loc=car.get_rect()
 car_loc.center = right_lane, height*0.86
 #enemy vehicle
-car2 = pygame.image.load(r"C:\Users\Vivek\Desktop\car game\policecar.png")
+car2 = pygame.image.load(r"C:\Users\Vivek\Desktop\car game\Car-Game\policecar.png")
 car2 = pygame.transform.scale(car2, (110, 110))
 car2_loc=car2.get_rect()
 car2_loc.center = left_lane, height*0.1
 
 
 counter = 0 
+clock = pygame.time.Clock()
 #GAME LOOP
 while running:#ittrate all the event of our application with a for loop
     counter +=1
@@ -57,6 +72,11 @@ while running:#ittrate all the event of our application with a for loop
          print ("game over")
          print("your score:",score)
          break
+    
+    # Flip everything to the display, controling speed of car
+    pygame.display.flip()
+    # Ensure program maintains a rate of 400 frames per second
+    clock.tick(400)
 
     ##EVENT LISTENERS
     for event in pygame.event.get():# all the event of our application are stored in pygame.event module , and we are fetching them with get() method
